@@ -1,0 +1,105 @@
+<?php
+namespace Module\Folio\Models\Entities;
+
+use Module\Folio\Interfaces\Model\iEntityAvatar;
+use Poirot\Std\Struct\aDataOptions;
+use Poirot\TenderBinClient\Model\aMediaObject;
+
+
+class AvatarEntity
+    extends aDataOptions
+    implements iEntityAvatar
+{
+    protected $uid;
+    /** @var aMediaObject[]  */
+    protected $medias = [];
+    protected $primary;
+
+
+    /**
+     * Set Avatar Owner UID
+     *
+     * @param mixed $uid
+     *
+     * @return $this
+     */
+    function setFolioId($uid)
+    {
+        $this->uid = (string) $uid;
+        return $this;
+    }
+
+    /**
+     * Get User Unique Identifier Belong To Avatar
+     *
+     * @return mixed
+     */
+    function getFolioId()
+    {
+        return $this->uid;
+    }
+
+
+    /**
+     * Set Primary Media By Hash ID
+     *
+     * @param mixed $hash
+     *
+     * @return $this
+     */
+    function setPrimary($hash)
+    {
+        $this->primary = $hash;
+        return $this;
+    }
+
+    /**
+     * Get Primary Media By Hash ID
+     *
+     * @return mixed|null
+     */
+    function getPrimary()
+    {
+        return $this->primary;
+    }
+
+    /**
+     * Set Avatars Attached Medias
+     *
+     * @param []EntityPostMediaObject $medias
+     *
+     * @return $this
+     */
+    function setMedias(array $medias)
+    {
+        $this->medias = array();
+
+        foreach ($medias as $m)
+            $this->addMedia($m);
+
+        return $this;
+    }
+
+    /**
+     * Get Attached Avatars
+     *
+     * @return array aMediaObject[]
+     */
+    function getMedias()
+    {
+        return $this->medias;
+    }
+
+    /**
+     * Attach Media To Avatars
+     *
+     * @param aMediaObject $media
+     *
+     * @return $this
+     */
+    function addMedia(aMediaObject $media)
+    {
+        $this->medias[] = $media;
+        return $this;
+    }
+}
