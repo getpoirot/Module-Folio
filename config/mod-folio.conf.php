@@ -4,6 +4,7 @@ use Module\Authorization\Services\ServiceGuardsContainer;
 use Module\Folio\Actions\Manipulation\CurrentUserAccountInfo;
 use Module\Folio\Events\EventsHeapOfFolio;
 use Module\Folio\Events\OnChangeAvatarEmbedToProfile;
+use Module\Folio\Module;
 use Module\Folio\RenderStrategy\JsonRenderer\AvatarRenderHydrate;
 use Module\Folio\RenderStrategy\JsonRenderer\FolioRenderHydrate;
 use Module\Folio\RenderStrategy\JsonRenderer\AccountInfoRenderHydrate;
@@ -14,17 +15,17 @@ use Module\Folio\RenderStrategy\JsonRenderer\ResultSet\AccountInfoResultRenderHy
 use Module\Folio\RenderStrategy\JsonRenderer\ResultSet\InteractionResultRenderHydrate;
 use Module\Folio\RenderStrategy\JsonRenderer\ResultSet\ProfileBasicResultRenderHydrate;
 use Module\Folio\RenderStrategy\RenderImageFromAvatarStrategy;
+use Module\Folio\Services\Authenticator\FolioApiAuthenticatorPlugin;
 use Module\Folio\Services\Models\AvatarsRepoService;
 use Module\Folio\Services\Models\FolioRepoService;
 use Module\Folio\Services\Models\FollowsRepoService;
 use Module\Folio\Services\Models\ProfileRepoService;
-use Module\Folio\Services\ServiceAuthenticator;
-use Module\Folio\Services\ServiceEvents;
+use Module\Folio\Services\AuthenticatorService;
+use Module\Folio\Services\EventsService;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\HttpRenderer\RenderStrategy\RenderJsonStrategy;
 use Module\HttpRenderer\Services\ServiceRenderStrategiesContainer;
 use Module\MongoDriver\Services\aServiceRepository;
-
 
 return [
 
@@ -32,10 +33,13 @@ return [
     #
     \Module\Folio\Module::CONF => [
 
-        ## Api Authenticator
+        ## Authenticator API
         #
         'api' => [
-            ServiceAuthenticator::CONF => null,
+            AuthenticatorService::CONF => function() {
+                /** @see \Module\Baroru\Authorization\FolioApiAuthenticatorService */
+                return \Module\Authorization\Actions::Authenticator(Module::AUTH_REALM_API);
+            },
         ],
 
         ## Users/Profile Who Considered as Trusted
@@ -47,7 +51,7 @@ return [
 
         ## Events
         #
-        ServiceEvents::CONF => [
+        EventsService::CONF => [
             /** @see \Poirot\Events\Event\BuildEvent */
 
             EventsHeapOfFolio::BEFORE_CREATE_FOLIO => [
@@ -77,6 +81,7 @@ return [
             'plugins_container' => [
                 'services' => [
                     // Authenticators Services
+                    FolioApiAuthenticatorPlugin::class,
                 ],
             ],
         ],
@@ -110,7 +115,7 @@ return [
                 FolioRenderHydrate::class,
             ],
             '@userPage' => [
-                AccountInfoRenderHydrate::class,
+                AccountInfoRenderHydrate::class, /** @see CurrentUserAccountInfo */
                 ProfileRenderHydrate::class,
                 ProfileTrustedRenderHydrate::class,
             ],
@@ -169,7 +174,7 @@ return [
 
     ## Mongo Driver:
     #
-    Module\MongoDriver\Module::CONF_KEY => [
+    \Module\MongoDriver\Module::CONF_KEY => [
         aServiceRepository::CONF_REPOSITORIES => [
             // folios repo
             FolioRepoService::class => [

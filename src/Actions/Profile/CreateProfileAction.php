@@ -1,15 +1,17 @@
 <?php
 namespace Module\Folio\Actions\Profile;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Actions\aAction;
 use Module\Folio\Events\DTofCreateFolio;
 use Module\Folio\Events\EventsHeapOfFolio;
 use Module\Folio\Forms\FolioHydrate;
 use Module\Folio\Forms\ProfileHydrate;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
+use Module\Folio\Models\Entities\Folio\ProfileFolioObject;
 use Module\Folio\Models\Entities\FolioEntity;
-use Poirot\Application\Exception\exAccessDenied;
+use Module\Folio\RenderStrategy\JsonRenderer\ProfileResultAware;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 
@@ -48,7 +50,7 @@ class CreateProfileAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized();
 
 
         ## Get Current Profile If Has
@@ -68,7 +70,11 @@ class CreateProfileAction
 
         # Create Folio Entity
         #
-        $entity  = new FolioEntity($hydEntity);
+        $entity   = new FolioEntity($hydEntity);
+        /** @var ProfileFolioObject $tContent */
+        $tContent = $entity->getContent();
+        $tContent->setAsPrimary(); // Profile Integration has always profile as primary
+
 
         // Determine Owner Identifier From Authorized Identity
         $entity->setOwnerId(
@@ -97,7 +103,8 @@ class CreateProfileAction
         ## Build Response
         #
         return [
-            'profile' => $pEntity,
+            'owner_id' => $identifier->getOwnerId(),
+            'profile'  => $entity,
         ];
     }
 

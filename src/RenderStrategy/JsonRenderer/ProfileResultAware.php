@@ -4,10 +4,12 @@ namespace Module\Folio\RenderStrategy\JsonRenderer;
 use Poirot\Std\Struct\aDataOptionsTrim;
 
 
-abstract class aProfileResultAware
+class ProfileResultAware
     extends aDataOptionsTrim
 {
+    protected $ownerId;
     protected $profile;
+
 
 
     // Setter Methods:
@@ -18,5 +20,13 @@ abstract class aProfileResultAware
     function setProfile($profile)
     {
         $this->profile = $profile;
+    }
+
+    /**
+     * @param mixed $ownerId
+     */
+    function setOwnerId($ownerId)
+    {
+        $this->ownerId = $ownerId;
     }
 }

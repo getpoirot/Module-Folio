@@ -3,10 +3,10 @@ namespace Module\Folio\Actions\Manipulation;
 
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Module\Profile\Interfaces\Model\Repo\iRepoFollows;
-use Poirot\Application\Exception\exAccessDenied;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 
 
 class CurrentUserAccountInfo
@@ -40,7 +40,7 @@ class CurrentUserAccountInfo
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized();
 
 
         // Retrieve User ID From OAuth
@@ -48,7 +48,6 @@ class CurrentUserAccountInfo
             $info = $identifier->getAuthInfo();
             return $info;
         });
-
 
         return [
             'account' => $oauthInfo,

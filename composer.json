@@ -11,6 +11,7 @@
         , "poirot/mod-driver_mongo": "dev-devel"
         , "poirot/mod-authorization": "dev-devel"
         , "poirot/client-oauth2": "dev-devel"
+        , "poirot/client-tenderbin": "dev-devel"
     }
     , "autoload"  : {
         "psr-4": {

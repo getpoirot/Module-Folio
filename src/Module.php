@@ -35,7 +35,9 @@ namespace Module\Folio
         , Sapi\Module\Feature\iFeatureOnPostLoadModulesGrabServices
     {
         const NAME = 'folio';        // used by some config and definitions
-        const CONF = 'module.folio';        // used by some config and definitions
+        const CONF = 'module.folio';
+
+        const AUTH_REALM_API = 'module.folio.api_authenticator';
 
 
         /**
@@ -63,6 +65,9 @@ namespace Module\Folio
 
             if (! $moduleManager->hasLoaded('MongoDriver') )
                 $moduleManager->loadModule('MongoDriver');
+
+            if (! $moduleManager->hasLoaded('OAuth2Client') )
+                $moduleManager->loadModule('OAuth2Client');
 
         }
 

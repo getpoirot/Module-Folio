@@ -10,7 +10,7 @@ use Poirot\Ioc\Container\Service\aServiceContainer;
 use Module\Folio\Events\EventsHeapOfFolio;
 
 
-class ServiceEvents
+class EventsService
     extends aServiceContainer
 {
     const NAME = 'events';

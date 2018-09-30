@@ -5,18 +5,18 @@ use Module\Folio\Services\Models\AvatarsRepoService;
 use Module\Folio\Services\Models\FolioRepoService;
 use Module\Folio\Services\Models\FollowsRepoService;
 use Module\Folio\Services\Models\ProfileRepoService;
-use Module\Folio\Services\ServiceAuthenticator;
-use Module\Folio\Services\ServiceEvents;
+use Module\Folio\Services\AuthenticatorService;
+use Module\Folio\Services\EventsService;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 
 return [
     'implementations' => [
-        ServiceAuthenticator::NAME => Authenticator::class,
+        AuthenticatorService::NAME => Authenticator::class,
     ],
     'services' => [
-        ServiceAuthenticator::NAME => new \Poirot\Ioc\instance( ServiceAuthenticator::class ),
+        AuthenticatorService::NAME => new \Poirot\Ioc\instance( AuthenticatorService::class ),
         FolioPlugins::NAME         => new \Poirot\Ioc\instance( FolioPlugins::class ),
-        ServiceEvents::NAME        => new \Poirot\Ioc\instance( ServiceEvents::class ),
+        EventsService::NAME        => new \Poirot\Ioc\instance( EventsService::class ),
     ],
     'nested' => [
         'repository' => [

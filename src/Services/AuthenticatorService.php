@@ -9,7 +9,7 @@ use Poirot\Ioc\instance;
 use Poirot\Std\Struct\DataEntity;
 
 
-class ServiceAuthenticator
+class AuthenticatorService
     extends aServiceContainer
 {
     const NAME = 'authenticator';

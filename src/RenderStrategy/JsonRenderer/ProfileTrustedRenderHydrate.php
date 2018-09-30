@@ -3,12 +3,12 @@ namespace Module\Folio\RenderStrategy\JsonRenderer;
 
 
 class ProfileTrustedRenderHydrate
-    extends aProfileResultAware
+    extends ProfileResultAware
 {
     function getTrusted()
     {
         return \Module\Folio\Actions::IsUserTrusted(
-            $this->profile['uid']
+            $this->ownerId
         );
     }
 }

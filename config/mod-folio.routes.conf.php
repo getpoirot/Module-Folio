@@ -183,7 +183,7 @@ return
                     ],
             ],
 
-            # 'profile'  => include __DIR__.'/routes/routes.profile.conf.php',
+            'profile'  => include __DIR__.'/routes/routes.profile.conf.php',
 
         ], // end folio routes
 

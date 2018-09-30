@@ -24,6 +24,10 @@ class ProfileRenderHydrate
                 'datetime'  => $this->profile['content']['birthday'],
                 'timestamp' => $this->profile['content']['birthday']->getTimestamp(),
             ] : null,
+            'datetime_created' => (isset($this->profile['datetime_created'])) ? [
+                'datetime'  => $this->profile['datetime_created'],
+                'timestamp' => $this->profile['datetime_created']->getTimestamp(),
+            ] : null
         ];
 
         return $r;
