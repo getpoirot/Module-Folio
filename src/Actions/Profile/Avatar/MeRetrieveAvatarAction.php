@@ -1,10 +1,10 @@
 <?php
 namespace Module\Folio\Actions\Profile\Avatar;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoAvatars;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 

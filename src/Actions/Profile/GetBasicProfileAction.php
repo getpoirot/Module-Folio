@@ -60,7 +60,8 @@ class GetBasicProfileAction
         #
         return [
             ListenerDispatch::RESULT_DISPATCH => [
-                'profile' => $entity,
+                'owner_id' => $userid,
+                'profile'  => $entity,
             ]
         ];
     }

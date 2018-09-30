@@ -69,6 +69,8 @@ namespace Module\Folio
             if (! $moduleManager->hasLoaded('OAuth2Client') )
                 $moduleManager->loadModule('OAuth2Client');
 
+            if (! $moduleManager->hasLoaded('TenderBinClient') )
+                $moduleManager->loadModule('TenderBinClient');
         }
 
         /**
