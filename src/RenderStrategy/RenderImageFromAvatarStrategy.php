@@ -103,6 +103,7 @@ class RenderImageFromAvatarStrategy
         if ( $res['primary'] )
             $link = $res['primary']['_link'];
         else
+            // TODO link for default avatar from merged config
             // Default None-Profile Picture
             $link = \Module\HttpFoundation\getServerUrl().'/no_avatar.jpg';
 
