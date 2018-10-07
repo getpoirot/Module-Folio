@@ -155,6 +155,7 @@ return [
                 'main/folio/profile/delegate/full.profile',
             ],
             '@avatars' => [
+                'main/folio/profile/avatars/create',
                 'main/folio/profile/avatars/retrieve',
                 'main/folio/profile/delegate/avatars/image',
             ],

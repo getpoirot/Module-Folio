@@ -128,7 +128,9 @@ class MeUploadAvatarAction
         # Build Response:
         #
         return [
-            ListenerDispatch::RESULT_DISPATCH => $pEntity
+            ListenerDispatch::RESULT_DISPATCH => [
+                'avatars' => $pEntity,
+            ]
         ];
     }
 
