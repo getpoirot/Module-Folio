@@ -1,14 +1,12 @@
 <?php
 namespace Module\Folio\Actions;
 
-// TODO remove baroru dependency
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exRouteNotMatch;
 use Poirot\AuthSystem\Authenticate\Authenticator;
-use Poirot\Http\HttpMessage\Request\Plugin\ParseRequestData;
 use Poirot\Http\Interfaces\iHttpRequest;
 
 
