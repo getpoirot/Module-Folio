@@ -4,6 +4,7 @@ namespace Module\Folio\Actions\Profile;
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\Folio\RenderStrategy\JsonRenderer\ProfileResultAware;
+use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Module\Profile\Interfaces\Model\Repo\iRepoFollows;
 use Poirot\Application\Exception\exUnathorized;
@@ -50,14 +51,18 @@ class GetMyProfileAction
 
         $userId     = $identifier->getOwnerId();
 
+
         # Retrieve Primary Profile For User
         #
         $entity = \Module\Folio\Actions::findPrimaryProfile( $userId );
 
+
         // TODO can using also return ProfileResultAware model
-        return [
+        ## Build Response
+        #
+        return $this->respondResult([
             'owner_id' => $userId,
             'profile'  => $entity,
-        ];
+        ]);
     }
 }

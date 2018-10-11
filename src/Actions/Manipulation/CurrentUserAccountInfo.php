@@ -3,6 +3,7 @@ namespace Module\Folio\Actions\Manipulation;
 
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
+use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Module\Profile\Interfaces\Model\Repo\iRepoFollows;
 use Poirot\Application\Exception\exUnathorized;
@@ -28,7 +29,7 @@ class CurrentUserAccountInfo
     function __construct(
         Authenticator $authenticator
     ) {
-        $this->auth       = $authenticator;
+        $this->auth = $authenticator;
     }
 
 
@@ -49,8 +50,9 @@ class CurrentUserAccountInfo
             return $info;
         });
 
-        return [
+
+        return $this->respondResult([
             'account' => $oauthInfo,
-        ];
+        ]);
     }
 }
