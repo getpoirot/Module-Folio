@@ -25,7 +25,7 @@ class AccountInfoRenderHydrate
 
     function getAccount()
     {
-        return [
+        $r = [
             'username'   => $this->account['user']['username'],
             'valid'      => $this->account['is_valid'],
             'valid_more' => $this->account['is_valid_more'],
@@ -33,5 +33,10 @@ class AccountInfoRenderHydrate
                 'mobile'   => $this->account['user']['mobile'],
             ],
         ];
+
+        if ( isset($this->account['grants']) )
+            $r['grants'] = $this->account['grants'];
+
+        return $r;
     }
 }

@@ -3,7 +3,6 @@ namespace Module\Folio\Actions\Manipulation;
 
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
-use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Module\Profile\Interfaces\Model\Repo\iRepoFollows;
 use Poirot\Application\Exception\exUnathorized;
@@ -46,10 +45,9 @@ class CurrentUserAccountInfo
 
         // Retrieve User ID From OAuth
         $oauthInfo = $nameFromOAuthServer = \Poirot\Std\reTry(function () use ($identifier) {
-            $info = $identifier->getAuthInfo();
+            $info = $identifier->getAuthInfo(true);
             return $info;
         });
-
 
         return $this->respondResult([
             'account' => $oauthInfo,

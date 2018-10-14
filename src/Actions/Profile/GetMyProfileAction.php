@@ -4,7 +4,6 @@ namespace Module\Folio\Actions\Profile;
 use Module\Folio\Actions\aAction;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\Folio\RenderStrategy\JsonRenderer\ProfileResultAware;
-use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Module\Profile\Interfaces\Model\Repo\iRepoFollows;
 use Poirot\Application\Exception\exUnathorized;
