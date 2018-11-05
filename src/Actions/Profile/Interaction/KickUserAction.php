@@ -10,6 +10,7 @@ use Module\Folio\Models\Entities\Folio\ProfileFolioObject;
 use Module\Folio\Models\Entities\FollowEntity;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Poirot\Application\Exception\exAccessDenied;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 
 
@@ -48,7 +49,7 @@ class KickUserAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
         $me         = $identifier->getOwnerId();
 

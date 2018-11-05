@@ -10,6 +10,7 @@ use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exResourceNotFound;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 use Poirot\Std\Exceptions\exUnexpectedValue;
@@ -54,7 +55,7 @@ class MeModifyAvatarAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
         $userId     = $identifier->getOwnerId();
 

@@ -10,6 +10,7 @@ use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exRouteNotMatch;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 use Poirot\Std\Exceptions\exUnexpectedValue;
@@ -54,7 +55,7 @@ class RetrieveAvatarAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         // TODO folio may locked by admin so must retrieve only available ones!

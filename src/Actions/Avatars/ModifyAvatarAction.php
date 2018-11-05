@@ -1,15 +1,16 @@
 <?php
 namespace Module\Folio\Actions\Avatars;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Actions\aAction;
 use Module\Folio\Events\EventsHeapOfFolio;
 use Module\Folio\Forms\UploadAvatarHydrate;
 use Module\Folio\Interfaces\Model\Repo\iRepoAvatars;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exRouteNotMatch;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 use Poirot\Std\Exceptions\exUnexpectedValue;
@@ -54,7 +55,7 @@ class ModifyAvatarAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         // TODO folio may locked by admin so must retrieve only available ones!

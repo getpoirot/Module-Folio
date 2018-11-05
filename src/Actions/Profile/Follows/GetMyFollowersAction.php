@@ -8,6 +8,7 @@ use Module\Folio\Interfaces\Model\Repo\iRepoFollows;
 use Module\Folio\Interfaces\Model\Repo\iRepoProfiles;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Poirot\Application\Exception\exAccessDenied;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\HttpMessage\Request\Plugin\ParseRequestData;
 use Poirot\Http\Interfaces\iHttpRequest;
@@ -57,7 +58,7 @@ class GetMyFollowersAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
         $me         = $identifier->getOwnerId();
 

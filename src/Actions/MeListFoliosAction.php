@@ -1,10 +1,10 @@
 <?php
 namespace Module\Folio\Actions;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
-use Poirot\Application\Exception\exAccessDenied;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\HttpMessage\Request\Plugin\ParseRequestData;
 use Poirot\Http\Interfaces\iHttpRequest;
@@ -44,7 +44,7 @@ class MeListFoliosAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         ## Parse Request

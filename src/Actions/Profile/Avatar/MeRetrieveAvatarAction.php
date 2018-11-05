@@ -6,6 +6,7 @@ use Module\Folio\Interfaces\Model\Repo\iRepoAvatars;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
 use Poirot\Application\Exception\exAccessDenied;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 
 
@@ -41,7 +42,7 @@ class MeRetrieveAvatarAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
         $userId     = $identifier->getOwnerId();
 

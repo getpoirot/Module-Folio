@@ -11,6 +11,7 @@ use Module\Folio\Models\Entities\AvatarEntity;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exRouteNotMatch;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\HttpMessage\Request\Plugin\ParseRequestData;
 use Poirot\Http\Interfaces\iHttpRequest;
@@ -57,7 +58,7 @@ class UploadAvatarAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         // TODO folio may locked by admin so must retrieve only available ones!

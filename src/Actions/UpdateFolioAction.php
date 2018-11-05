@@ -1,7 +1,6 @@
 <?php
 namespace Module\Folio\Actions;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Events\DTofCreateFolio;
 use Module\Folio\Events\EventsHeapOfFolio;
 use Module\Folio\Forms\FolioHydrate;
@@ -10,6 +9,7 @@ use Module\Folio\Models\Entities\FolioEntity;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Poirot\Application\Exception\exAccessDenied;
 use Poirot\Application\Exception\exRouteNotMatch;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 
@@ -48,7 +48,7 @@ class UpdateFolioAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         // TODO folio may locked by admin so must retrieve only available ones!

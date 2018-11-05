@@ -1,14 +1,14 @@
 <?php
 namespace Module\Folio\Actions;
 
-use Module\Baroru\Authorization\IdentifierTokenAssertion;
 use Module\Folio\Events\DTofCreateFolio;
 use Module\Folio\Events\EventsHeapOfFolio;
 use Module\Folio\Forms\FolioHydrate;
 use Module\Folio\Interfaces\Model\Repo\iRepoFolios;
 use Module\Folio\Models\Entities\FolioEntity;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
-use Poirot\Application\Exception\exAccessDenied;
+use Module\OAuth2Client\Authenticate\IdentifierTokenAssertion;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 use Poirot\Http\Interfaces\iHttpRequest;
 
@@ -47,7 +47,7 @@ class CreateFolioAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
 
         # Hydrated/Validate Folio From Http Request

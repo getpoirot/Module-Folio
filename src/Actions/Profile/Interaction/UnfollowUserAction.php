@@ -8,6 +8,7 @@ use Module\Folio\Interfaces\Model\Repo\iRepoFollows;
 use Module\HttpFoundation\Events\Listener\ListenerDispatch;
 use Module\Profile\Model\Driver\Mongo\EntityFollow;
 use Poirot\Application\Exception\exAccessDenied;
+use Poirot\Application\Exception\exUnathorized;
 use Poirot\AuthSystem\Authenticate\Authenticator;
 
 
@@ -46,7 +47,7 @@ class UnfollowUserAction
     {
         /** @var IdentifierTokenAssertion $identifier */
         if (! $identifier = $this->auth->hasAuthenticated() )
-            throw new exAccessDenied;
+            throw new exUnathorized;
 
         $me         = $identifier->getOwnerId();
 
