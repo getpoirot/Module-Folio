@@ -1,9 +1,10 @@
 <?php
 namespace Module\Folio\Events;
 
-use Module\Folio\Interfaces\Model\iEntityAvatar;
 use Poirot\Events\Event;
 use Poirot\Events\EventHeap;
+
+use Module\Folio\Interfaces\Model\iEntityAvatar;
 
 
 class EventsHeapOfFolio
